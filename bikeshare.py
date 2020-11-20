@@ -22,7 +22,7 @@ def get_filters():
     """
     print('Hello! Let\'s explore some US bikeshare data!')
     # TO DO: get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
-    
+
     while True:
         city = input("Would you like to see data for Chicago, New York City, or Washington?").lower()
         if city not in CITIES:
@@ -41,7 +41,7 @@ def get_filters():
             break
 
     # TO DO: get user input for day of week (all, monday, tuesday, ... sunday)
-    
+
     while True:
         day = input('And finally, which day of the week would you like to look at (say all if you want!)')
         if day not in DAYS:
@@ -64,38 +64,38 @@ def load_data(city, month, day):
     Returns:
         df - Pandas DataFrame containing city data filtered by month and day
     """
-    
+
     df = pd.read_csv(CITY_DATA[city])
-        
+
     df['Start Time'] = pd.to_datetime(df['Start Time'])
     df['End Time'] = pd.to_datetime(df['End Time'])
-    
+
     # filter by month if applicable
     df['month'] = df['Start Time'].dt.month
-    if month != 'all': 
+    if month != 'all':
         # use the index of the months list to get the corresponding int
         months = ['january', 'february', 'march', 'april', 'may', 'june']
         month = months.index(month) + 1
-    
+
     #filter day of weekif applicable
     df['day_of_week'] = df['Start Time'].dt.weekday_name
     if day != 'all':
     #filter by day of week to create new dataframe
         df = df[df['day_of_week'] == day.title()]
-    
-    
+
+
     return df
 
 
 def time_stats(df):
     """Displays statistics on the most frequent times of travel."""
-   
-    
+
+
     print('\nCalculating The Most Frequent Times of Travel...\n')
     start_time = time.time()
 
     # TO DO: display the most common month
-    df['Start Time'] = pd.to_datetime(df['Start Time']) 
+    df['Start Time'] = pd.to_datetime(df['Start Time'])
     df['month'] = df['Start Time'].dt.month
     common_month = df['month'].mode()[0]
     print('The most popular month traveled: {}.\n'.format(common_month))
@@ -122,7 +122,7 @@ def station_stats(df):
 
     # TO DO: display most commonly used start station
     popular_start_station = df['Start Station'].mode()
-    print('{} is the most commonly used start station.\n'.format(popular_start_station))
+    print('The most commonly used start station is: {}.\n'.format(popular_start_station))
 
 
     # TO DO: display most commonly used end station
@@ -130,8 +130,8 @@ def station_stats(df):
     print('{} is the most commonly used end station.\n'.format(popular_end_station))
 
     # TO DO: display most frequent combination of start station and end station trip
-    
-    
+
+
     frequent_combination = df.groupby(['Start Station', 'End Station']).size().sort_values(ascending=False).nlargest(n=1)
     print('frequent_combination is: {}'.format(frequent_combination))
 
@@ -149,7 +149,7 @@ def trip_duration_stats(df):
     df["travel_time"] = df["End Time"] - df["Start Time"]
     total_travel_time = df["travel_time"].sum()
     print("Total Travel Time:", total_travel_time)
-    
+
     # TO DO: display mean travel time
     average_travel_time = df["travel_time"].mean()
     print("Average Travel Time:", average_travel_time)
@@ -196,7 +196,7 @@ def raw_input(df):
             i+= 5
         else:
             break
-        
+
 def main():
     while True:
         city, month, day = get_filters()
@@ -207,7 +207,7 @@ def main():
         trip_duration_stats(df)
         user_stats(df)
         raw_input(df)
-        
+
         restart = input('\nWould you like to restart? Enter yes or no.\n')
         if restart.lower() != 'yes':
             break
