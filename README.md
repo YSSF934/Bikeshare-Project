@@ -1,7 +1,7 @@
 ## Bikeshare Project
 
 ### Description
-In this project, I wrote Python code to import US bike share data and answer interesting questions about it by computing descriptive statistics. I also wrote a script that takes in raw input to create an interactive experience in the terminal to present these statistics.
+This script imports US bike share data from 3 possible cities and answers interesting questions by computing various descriptive statistics. User input creates an interactive experience in the terminal to present these statistics.
 
 ### Files used
 chicago.csv
